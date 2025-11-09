@@ -74,12 +74,33 @@ hr_features = upsampler(hr_image, lr_features, vis_attn=True)
 
 ---
 
-**Training code** for AnyUp will be released soon!
+**Training your own AnyUp model**
 
+If you want to train your own AnyUp model on custom data or with different hyperparameters, you can do so by running
+the `train.py` script. We use [hydra](https://hydra.cc/docs/intro/) for configuration management, so you can easily modify
+hyperparameters in the corresponding config files.
+
+<details>
+  <summary>Install the required dependencies for training:</summary>
+  
+```bash
+micromamba create -n anyup python=3.12 -y
+micromamba activate anyup
+pip install uv
+uv pip install einops matplotlib numpy timm plotly tensorboard hydra-core ipykernel rich scikit-learn torchmetrics transformers torch torchvision
+```
+
+</details> 
+
+
+We trained our model on the ImageNet dataset, which you will have to download and put into `./data/imagenet` before
+running the training script. We further use information on the image resolutions in ImageNet, which can be created
+using the `comput_sizes_index.py` script. You can also download this file directly from the releases and put it into
+`./data/cache/train.sizes.tsv`.
+
+**Future Fixes:**
 We are also planning to integrate FlexAttention support to speed up the window attention and reduce memory consumption.
 We are always happy for a helping hand, so feel free to reach out if you want to contribute!
-
----
 
 **Evaluation** followed the protocols of [JAFAR](https://github.com/PaulCouairon/JAFAR) for semantic segmentation and
 [Probe3D](https://github.com/mbanani/probe3d) for surface normal and depth estimation. Note that we applied a small fix

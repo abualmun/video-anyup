@@ -1,0 +1,4 @@
+_target_: anyup.utils.dataloader.ImageDataset
+root: ${dataroot}/train
+root_cache: ${project_root}/data/cache/train
+min_side_threshold: ${crop_size}
