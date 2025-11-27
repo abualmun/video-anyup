@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anyup"
+version = "0.1.0"
+description = "AnyUp: Universal Feature Upsampling"
+license = "CC-BY-4.0"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Thomas Wimmer", email = "twimmer@mpi-inf.mpg.de" }
+]
+classifiers = [
+    "License :: Other/Proprietary License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "timm",
+    "tensorboard",
+    "hydra-core",
+    "rich",
+    "scikit-learn",
+    "torch",
+    "torchvision",
+]
+keywords = ["computer vision", "upsampling", "deep learning"]
+
+[project.optional-dependencies]
+# For running notebooks
+notebook = [
+    "ipykernel",
+    "notebook",
+    "jupyter"
+]
+# Please install NATTEN manually before to match the local CUDA and PyTorch version
+natten = [
+    "natten",
+]
+
+[project.urls]
+"Homepage" = "https://wimmerth.github.io/anyup/"
+"Repository" = "https://github.com/wimmerth/anyup"
+"Paper" = "https://arxiv.org/abs/2510.12764"
+
+[tool.setuptools]
+license-files = ["LICENSE"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["anyup*"]

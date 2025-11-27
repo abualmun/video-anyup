@@ -39,6 +39,9 @@ addition to PyTorch. Follow the official [install instructions for your CUDA ver
 with multiple different feature extractors. This improves generalization to unseen backbones at inference time.
 To use this feature, please load the pre-trained model with `torch.hub.load('wimmerth/anyup', 'anyup_multi_backbone')`.
 
+**[11/25]** We added installation of `anyup` as package for local development. Please see the instructions for
+installation below.
+
 ---
 
 ### Use AnyUp to upsample your features!
@@ -95,23 +98,47 @@ upsampler = torch.hub.load('wimmerth/anyup', 'anyup')
 
 ---
 
-**Training your own AnyUp model**
-
-If you want to train your own AnyUp model on custom data or with different hyperparameters, you can do so by running
-the `train.py` script. We use [hydra](https://hydra.cc/docs/intro/) for configuration management, so you can easily modify
-hyperparameters in the corresponding config files.
+**Installation**
 
 <details>
-  <summary>Install the required dependencies for training:</summary>
+  <summary>Install <code>anyup</code> as package for local development:</summary>
   
 ```bash
 micromamba create -n anyup python=3.12 -y
 micromamba activate anyup
 pip install uv
-uv pip install einops matplotlib numpy timm plotly tensorboard hydra-core ipykernel rich scikit-learn torchmetrics transformers torch torchvision
-```
 
+# Install the correct PyTorch version for your CUDA setup, e.g. for CUDA 11.8 and PyTorch=2.9.0:
+uv pip install torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cu128
+# Install the correct NATTEN version for your CUDA / PyTorch setup, e.g. for CUDA 11.8 and PyTorch=2.9.0:
+uv pip install natten==0.21.1+torch290cu128 -f https://whl.natten.org
+# Install the remaining dependencies and anyup as package (call from the root of the repository):
+uv pip install -e .
+```
 </details> 
+
+<details>
+  <summary>Install the required dependencies for training without installing <code>anyup</code> as package:</summary>
+  
+```bash
+micromamba create -n anyup python=3.12 -y
+micromamba activate anyup
+pip install uv
+
+# Install the correct PyTorch version for your CUDA setup, e.g. for CUDA 11.8 and PyTorch=2.9.0:
+uv pip install torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cu128
+# Install the correct NATTEN version for your CUDA / PyTorch setup, e.g. for CUDA 11.8 and PyTorch=2.9.0:
+uv pip install natten==0.21.1+torch290cu128 -f https://whl.natten.org
+# Install the remaining dependencies needed for training:
+uv pip install einops matplotlib numpy timm plotly tensorboard hydra-core rich scikit-learn
+```
+</details>
+
+**Training your own AnyUp model**
+
+If you want to train your own AnyUp model on custom data or with different hyperparameters, you can do so by running
+the `train.py` script. We use [hydra](https://hydra.cc/docs/intro/) for configuration management, so you can easily modify
+hyperparameters in the corresponding config files.
 
 
 We trained our model on the ImageNet dataset, which you will have to download and put into `./data/imagenet` before
