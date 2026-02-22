@@ -24,6 +24,8 @@ class AnyUp(nn.Module):
             lfu_dim=None,
             **kwargs,
     ):
+        print("AnyUp init With Beebzz!!!")
+        return None
         super().__init__()
         self.qk_dim = qk_dim
         self.lfu_dim = lfu_dim if lfu_dim is not None else qk_dim
